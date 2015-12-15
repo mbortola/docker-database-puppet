@@ -3,7 +3,6 @@
 node 'default' {
   include oradb_os
   include oradb_12c
-  include oradb_configuration
 }
 
 # operating system settings for Database
@@ -55,7 +54,7 @@ class oradb_12c {
 
     oradb::installdb{ '12.1.0.2_Linux-x86-64':
       version                   => '12.1.0.2',
-      file                      => 'linuxamd64_12c_database',
+      file                      => 'linuxamd64_12102_database',
       database_type             => 'EE',
       oracle_base               => '/oracle',
       oracle_home               => '/oracle/product/12.1/db',
