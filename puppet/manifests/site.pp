@@ -53,10 +53,10 @@ class oradb_os {
 class oradb_12c {
   require oradb_os
 
-    oradb::installdb{ '12.1.0.1_Linux-x86-64':
-      version                   => '12.1.0.1',
+    oradb::installdb{ '12.1.0.2_Linux-x86-64':
+      version                   => '12.1.0.2',
       file                      => 'linuxamd64_12c_database',
-      database_type             => 'SE',
+      database_type             => 'EE',
       oracle_base               => '/oracle',
       oracle_home               => '/oracle/product/12.1/db',
       user_base_dir             => '/home',
@@ -76,7 +76,7 @@ class oradb_12c {
       user         => 'oracle',
       group        => 'dba',
       download_dir => "/var/tmp/install",
-      require      => Oradb::Installdb['12.1.0.1_Linux-x86-64'],
+      require      => Oradb::Installdb['12.1.0.2_Linux-x86-64'],
     }
 
     oradb::listener{'start listener':
@@ -97,9 +97,9 @@ class oradb_12c {
       download_dir              => "/var/tmp/install",
       action                    => 'create',
       db_name                   => 'orcl',
-      db_domain                 => 'example.com',
-      sys_password              => 'Welcome01',
-      system_password           => 'Welcome01',
+      db_domain                 => 'infocert.it',
+      sys_password              => 'Oracle12',
+      system_password           => 'Oracle12',
       data_file_destination     => "/oracle/oradata",
       recovery_area_destination => "/oracle/flash_recovery_area",
       character_set             => "AL32UTF8",
@@ -128,39 +128,4 @@ class oradb_12c {
       require                 => Oradb::Dbactions['start oraDb'],
     }
 
-}
-
-class oradb_configuration {
-  require oradb_12c
-
-  # tablespace {'MY_TS':
-  #   ensure                    => present,
-  #   size                      => 100M,
-  #   datafile                  => 'my_ts.dbf',
-  #   logging                   => 'yes',
-  #   bigfile                   => 'yes',
-  #   autoextend                => on,
-  #   next                      => 100M,
-  #   max_size                  => 12288M,
-  #   extent_management         => local,
-  #   segment_space_management  => auto,
-  # }
-
-  # role {'APPS':
-  #   ensure    => present,
-  # }
-
-  # oracle_user{'TESTUSER':
-  #   ensure                    => present,
-  #   temporary_tablespace      => 'TEMP',
-  #   default_tablespace        => 'MY_TS',
-  #   password                  => 'testuser',
-  #   grants                    => ['SELECT ANY TABLE',
-  #                                 'CONNECT',
-  #                                 'RESOURCE',
-  #                                 'APPS'],
-  #   quotas                    => { "MY_TS" => 'unlimited'},
-  #   require                   => [Tablespace['MY_TS'],
-  #                                 Role['APPS']],
-  # }
 }

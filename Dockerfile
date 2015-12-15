@@ -26,17 +26,14 @@ WORKDIR /etc/puppet/
 RUN librarian-puppet install
 
 # upload software
-RUN mkdir /var/tmp/install
-RUN chmod 777 /var/tmp/install
+#RUN chmod 777 /var/tmp/install
+#RUN mkdir /software
 
-RUN mkdir /software
+#COPY linuxamd64_12c_database_1of2.zip /software/
+#COPY linuxamd64_12c_database_2of2.zip /software/
+#RUN chmod -R 777 /software
 
-COPY linuxamd64_12c_database_1of2.zip /software/
-COPY linuxamd64_12c_database_2of2.zip /software/
-
-RUN chmod -R 777 /software
-
-RUN puppet apply /etc/puppet/site.pp --verbose --detailed-exitcodes || [ $? -eq 2 ]
+#RUN puppet apply /etc/puppet/site.pp --verbose --detailed-exitcodes || [ $? -eq 2 ]
 
 EXPOSE 1521
 
@@ -47,9 +44,9 @@ RUN chmod 0755 /startup.sh
 WORKDIR /
 
 # cleanup
-RUN rm -rf /software/*
-RUN rm -rf /var/tmp/install/*
-RUN rm -rf /var/tmp/*
-RUN rm -rf /tmp/*
+#RUN rm -rf /software/*
+#RUN rm -rf /var/tmp/install/*
+#RUN rm -rf /var/tmp/*
+#RUN rm -rf /tmp/*
 
 CMD bash -C '/startup.sh';'bash'
